@@ -23,7 +23,7 @@ public class Producer extends Thread {
 
     public void run() {
         synchronized (queue) {
-            for (int i = 0; i < n; i++) {
+            for (int i = 2; i < n; i++) {
                 while (queue.size() == size) {
                     try {
                         queue.wait();
@@ -43,7 +43,7 @@ public class Producer extends Thread {
     }
 
     static Boolean isPrime(int n) {
-        for (int i = 2; i < n; i++) {
+        for (int i = 2; i < n/2; i++) {
             if (n % i == 0) {
                 return false;
             }

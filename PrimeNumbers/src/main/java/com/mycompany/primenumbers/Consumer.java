@@ -36,7 +36,7 @@ public class Consumer extends Thread {
                     }
                     counter++;
                     greatest = prime;
-                    if(prime == 0){
+                    if(prime == 2){
                         fileWriter.write("\"" + prime + "\"");
                     }else{
                         fileWriter.write(" , \"" + prime + "\"");
