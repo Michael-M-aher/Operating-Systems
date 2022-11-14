@@ -4,6 +4,12 @@
  */
 package com.mycompany.primenumbers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author misho
@@ -43,9 +49,14 @@ public class PrimeNumbers extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Prime Numbers");
         setBackground(new java.awt.Color(51, 51, 51));
+        setLocation(new java.awt.Point(350, 200));
+        setName("Prime Numbers"); // NOI18N
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setForeground(new java.awt.Color(0, 51, 51));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,10 +64,13 @@ public class PrimeNumbers extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("N");
 
+        jLabel2.setForeground(new java.awt.Color(0, 51, 51));
         jLabel2.setText("Buffer Size");
 
+        jLabel3.setForeground(new java.awt.Color(0, 51, 51));
         jLabel3.setText("Output File");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -142,15 +156,15 @@ public class PrimeNumbers extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +213,50 @@ public class PrimeNumbers extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+//            get values from textfields
+            int n = Integer.parseInt(jTextField1.getText());
+            int size = Integer.parseInt(jTextField2.getText());;
+            String fileName = jTextField3.getText();
+            
+//            if file exists delete it
+            try {
+  
+                Files.deleteIfExists(Paths.get(fileName));
+            }
+            catch (IOException e) {
+
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+//            create producer and consumer
+            Producer producer = new Producer(n, size);
+            Consumer consumer = new Consumer(producer.queue, fileName, size);
+            
+//            start the time and run producer and consumer threads
+            long startTime = System.currentTimeMillis();
+            producer.start();
+            consumer.start();
+            producer.join();
+            consumer.join();
+            long endTime = System.currentTimeMillis();
+            
+//            set values of labels
+            jLabel4.setText(Integer.toString(consumer.greatest));
+            jLabel5.setText(Integer.toString(consumer.counter));
+            jLabel6.setText(Long.toString((endTime - startTime)) + " ms");
+            
+//            open notepad with output file
+            try {
+                ProcessBuilder pb = new ProcessBuilder("Notepad.exe", fileName);
+                pb.start();
+            } catch (IOException ex) {
+                Logger.getLogger(PrimeNumbers.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PrimeNumbers.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
