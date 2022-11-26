@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.primenumbers;
 
 import java.io.IOException;
@@ -10,10 +6,6 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author misho
- */
 public class PrimeNumbers extends javax.swing.JFrame {
 
     /**

@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.primenumbers;
 
-/**
- *
- * @author misho
- */
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -43,7 +35,7 @@ public class Producer extends Thread {
     }
 
     static Boolean isPrime(int n) {
-        for (int i = 2; i < n/2; i++) {
+        for (int i = 2; i <= n/2; i++) {
             if (n % i == 0) {
                 return false;
             }
