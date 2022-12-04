@@ -16,8 +16,8 @@ public class Consumer extends Thread {
 
     public void run() {
         try {
+        	FileWriter fileWriter = new FileWriter(fileName, true);
             while (true) {
-                FileWriter fileWriter = new FileWriter(fileName, true);
                 synchronized (queue) {
                     while (queue.isEmpty()) {
                         queue.wait();
@@ -34,9 +34,9 @@ public class Consumer extends Thread {
                         fileWriter.write(" , \"" + prime + "\"");
                     }
                     queue.notifyAll();
-                }
-                fileWriter.close();
+                }  
             }
+            fileWriter.close();
         } catch (Exception e) {
             System.out.println(e);
         }
