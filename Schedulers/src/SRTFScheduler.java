@@ -6,19 +6,6 @@ public class SRTFScheduler extends Scheduler {
 
     public SRTFScheduler(ArrayList<SchedulerProcess> processes, int contextSwitching) {
         super(processes, contextSwitching);
-        sortProcessesByArrivalTime();
-    }
-
-    void sortProcessesByArrivalTime() {
-        for (int i = 0; i < processes.size(); i++) {
-            for (int j = 0; j < processes.size() - 1; j++) {
-                if (processes.get(j).getArrivalTime() > processes.get(j + 1).getArrivalTime()) {
-                    SchedulerProcess temp = processes.get(j);
-                    processes.set(j, processes.get(j + 1));
-                    processes.set(j + 1, temp);
-                }
-            }
-        }
     }
 
     SchedulerProcess getShortestRemainingTimeProcess() {
@@ -37,41 +24,44 @@ public class SRTFScheduler extends Scheduler {
 
     int getWaitTime(SchedulerProcess process, int time) {
         int waitTime = 0;
-        for (SchedulerProcess scheduledProcess : scheduledProcesses) {
-            if (scheduledProcess == process) {
-                waitTime = scheduledProcess.getWaitingTime() + (time - scheduledProcess.getEndTime());
-                break;
+        if (scheduledProcesses.contains(process)) {
+            waitTime = process.getWaitingTime() + (time - process.getEndTime());
+        } else {
+            waitTime = time - process.getArrivalTime();
+        }
+        return waitTime + getContextSwitching();
+    }
+
+    void addToReadyQueue(int time) {
+        for (SchedulerProcess process : processes) {
+            if (!readyQueue.contains(process) && process.getTempBurstTime() != 0
+                    && process.getArrivalTime() <= time) {
+                readyQueue.add(process);
             }
         }
-        return waitTime;
     }
 
     @Override
     void schedule() {
         int time = 0;
         do {
-            for (SchedulerProcess process : processes) {
-                if (process.getArrivalTime() == time) {
-                    readyQueue.add(process);
-                }
-            }
+            addToReadyQueue(time);
             if (readyQueue.isEmpty()) {
                 time++;
                 continue;
             }
             SchedulerProcess process = getShortestRemainingTimeProcess();
-            process.setTempBurstTime(process.getTempBurstTime() - 1);
             if (scheduledProcesses.isEmpty() || scheduledProcesses.get(scheduledProcesses.size() - 1) != process) {
                 if (!scheduledProcesses.isEmpty()) {
+                    time += getContextSwitching();
                     scheduledProcesses.get(scheduledProcesses.size() - 1).setEndTime(time);
+                    addToReadyQueue(time);
+                    process = getShortestRemainingTimeProcess();
                 }
-                if (scheduledProcesses.contains(process)) {
-                    process.setWaitingTime(getWaitTime(process, time));
-                } else {
-                    process.setWaitingTime(time - process.getArrivalTime());
-                }
+                process.setWaitingTime(getWaitTime(process, time));
                 scheduledProcesses.add(process);
             }
+            process.setTempBurstTime(process.getTempBurstTime() - 1);
             time++;
             if (process.getTempBurstTime() == 0) {
                 readyQueue.remove(process);

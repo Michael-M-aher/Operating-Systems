@@ -2,26 +2,8 @@ public class SchedulerProcess {
     private String processName;
     private int arrivalTime;
     private int endTime;
-
-    public int getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(int endTime) {
-        this.endTime = endTime;
-    }
-
     private int burstTime;
     private int tempBurstTime;
-
-    public int getTempBurstTime() {
-        return tempBurstTime;
-    }
-
-    public void setTempBurstTime(int tempBurstTime) {
-        this.tempBurstTime = tempBurstTime;
-    }
-
     private int priority;
     private int waitingTime;
 
@@ -49,12 +31,28 @@ public class SchedulerProcess {
         this.arrivalTime = arrivalTime;
     }
 
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
     public int getBurstTime() {
         return burstTime;
     }
 
     public void setBurstTime(int burstTime) {
         this.burstTime = burstTime;
+    }
+
+    public int getTempBurstTime() {
+        return tempBurstTime;
+    }
+
+    public void setTempBurstTime(int tempBurstTime) {
+        this.tempBurstTime = tempBurstTime;
     }
 
     public int getPriority() {
