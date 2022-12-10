@@ -4,15 +4,40 @@ import java.util.ArrayList;
 public abstract class Scheduler {
     protected ArrayList<SchedulerProcess> processes;
     protected ArrayList<SchedulerProcess> scheduledProcesses;
+    protected ArrayList<SchedulerProcess> readyQueue;
     protected int contextSwitching;
-
+    protected int quantum;
     private double averageTurnaroundTime;
     private double averageWaitingTime;
 
-    public Scheduler(ArrayList<SchedulerProcess> processes, int contextSwitching) {
+    public Scheduler(ArrayList<SchedulerProcess> processes, int contextSwitching, int quantum) {
         this.processes = processes;
         this.scheduledProcesses = new ArrayList<SchedulerProcess>();
+        this.readyQueue = new ArrayList<SchedulerProcess>();
         this.contextSwitching = contextSwitching;
+        this.quantum = quantum;
+        sortProcessesByArrivalTime();
+    }
+
+    void sortProcessesByArrivalTime() {
+        for (int i = 0; i < processes.size(); i++) {
+            for (int j = 0; j < processes.size() - 1; j++) {
+                if (processes.get(j).getArrivalTime() > processes.get(j + 1).getArrivalTime()) {
+                    SchedulerProcess temp = processes.get(j);
+                    processes.set(j, processes.get(j + 1));
+                    processes.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    protected void addToReadyQueue(int time) {
+        for (SchedulerProcess process : processes) {
+            if (!readyQueue.contains(process) && process.getTempBurstTime() != 0
+                    && process.getArrivalTime() <= time) {
+                readyQueue.add(process);
+            }
+        }
     }
 
     public int getContextSwitching() {

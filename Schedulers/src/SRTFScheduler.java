@@ -2,10 +2,8 @@ import java.util.ArrayList;
 
 public class SRTFScheduler extends Scheduler {
 
-    private ArrayList<SchedulerProcess> readyQueue = new ArrayList<SchedulerProcess>();
-
-    public SRTFScheduler(ArrayList<SchedulerProcess> processes, int contextSwitching) {
-        super(processes, contextSwitching);
+    public SRTFScheduler(ArrayList<SchedulerProcess> processes, int contextSwitching, int quantum) {
+        super(processes, contextSwitching, quantum);
     }
 
     SchedulerProcess getShortestRemainingTimeProcess() {
@@ -30,15 +28,6 @@ public class SRTFScheduler extends Scheduler {
             waitTime = time - process.getArrivalTime();
         }
         return waitTime + getContextSwitching();
-    }
-
-    void addToReadyQueue(int time) {
-        for (SchedulerProcess process : processes) {
-            if (!readyQueue.contains(process) && process.getTempBurstTime() != 0
-                    && process.getArrivalTime() <= time) {
-                readyQueue.add(process);
-            }
-        }
     }
 
     @Override
