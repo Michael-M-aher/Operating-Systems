@@ -9,7 +9,8 @@ public class RRScheduler extends Scheduler {
     @Override
     void schedule() {
         int time = 0;
-        do {
+        int numFinished = 0;
+        while (numFinished != processes.size()) {
             addToReadyQueue(time);
             if (!readyQueue.isEmpty()) {
                 SchedulerProcess process = readyQueue.get(0);
@@ -29,11 +30,12 @@ public class RRScheduler extends Scheduler {
                     process.setEndTime(time);
                     process.setWaitingTime(time - process.getArrivalTime() - process.getBurstTime());
                     readyQueue.remove(process);
+                    numFinished++;
                 }
             } else {
                 time++;
             }
-        } while (time < processes.get(processes.size() - 1).getArrivalTime() || !readyQueue.isEmpty());
+        }
 
     }
 

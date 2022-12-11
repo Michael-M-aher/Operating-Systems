@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-// Create a class called Scheduler with the following attributes:, list of processes, average turnaroundTime and average waiting time.
 public abstract class Scheduler {
     protected ArrayList<SchedulerProcess> processes;
     protected ArrayList<SchedulerProcess> scheduledProcesses;
@@ -16,18 +15,13 @@ public abstract class Scheduler {
         this.readyQueue = new ArrayList<SchedulerProcess>();
         this.contextSwitching = contextSwitching;
         this.quantum = quantum;
-        sortProcessesByArrivalTime();
+        resetProcessTemp();
     }
 
-    void sortProcessesByArrivalTime() {
-        for (int i = 0; i < processes.size(); i++) {
-            for (int j = 0; j < processes.size() - 1; j++) {
-                if (processes.get(j).getArrivalTime() > processes.get(j + 1).getArrivalTime()) {
-                    SchedulerProcess temp = processes.get(j);
-                    processes.set(j, processes.get(j + 1));
-                    processes.set(j + 1, temp);
-                }
-            }
+    private void resetProcessTemp() {
+        for (SchedulerProcess process : processes) {
+            process.setTempBurstTime(process.getBurstTime());
+            process.setTempPriority(process.getTempPriority());
         }
     }
 
@@ -113,6 +107,13 @@ public abstract class Scheduler {
         }
         System.out.println();
 
+    }
+
+    public void displayAllData() {
+        displayProcessessOrder();
+        displayProcessesTable();
+        displayAverageWaitingTime();
+        displayAverageTurnaroundTime();
     }
 
     abstract void schedule();

@@ -5,6 +5,26 @@ public class SchedulerProcess {
     private int burstTime;
     private int tempBurstTime;
     private int priority;
+    private int tempPriority;
+    // for solving starvation in priority
+    private int counter;
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public int getTempPriority() {
+        return tempPriority;
+    }
+
+    public void setTempPriority(int tempPriority) {
+        this.tempPriority = tempPriority;
+    }
+
     private int waitingTime;
 
     public SchedulerProcess(String processName, int arrivalTime, int burstTime, int priority) {
@@ -13,6 +33,8 @@ public class SchedulerProcess {
         this.burstTime = burstTime;
         this.tempBurstTime = burstTime;
         this.priority = priority;
+        this.tempPriority = priority;
+        this.counter = 0;
     }
 
     public String getProcessName() {
