@@ -12,20 +12,6 @@ public class PriorityScheduler extends Scheduler {
         this.agingNumber = 5;
     }
 
-    SchedulerProcess getGreatestPriority() {
-        SchedulerProcess shortestProcess = null;
-        for (SchedulerProcess process : readyQueue) {
-            if (shortestProcess == null) {
-                shortestProcess = process;
-            } else {
-                if (process.getTempPriority() < shortestProcess.getTempPriority()) {
-                    shortestProcess = process;
-                }
-            }
-        }
-        return shortestProcess;
-    }
-
     int getWaitTime(SchedulerProcess process, int time) {
         int waitTime = 0;
         if (scheduledProcesses.contains(process)) {

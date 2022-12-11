@@ -6,20 +6,6 @@ public class SRTFScheduler extends Scheduler {
         super(processes, contextSwitching, 0);
     }
 
-    SchedulerProcess getShortestRemainingTimeProcess() {
-        SchedulerProcess shortestProcess = null;
-        for (SchedulerProcess process : readyQueue) {
-            if (shortestProcess == null) {
-                shortestProcess = process;
-            } else {
-                if (process.getTempBurstTime() < shortestProcess.getTempBurstTime()) {
-                    shortestProcess = process;
-                }
-            }
-        }
-        return shortestProcess;
-    }
-
     int getWaitTime(SchedulerProcess process, int time) {
         int waitTime = 0;
         if (scheduledProcesses.contains(process)) {

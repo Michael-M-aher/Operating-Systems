@@ -34,6 +34,34 @@ public abstract class Scheduler {
         }
     }
 
+    protected SchedulerProcess getShortestRemainingTimeProcess() {
+        SchedulerProcess shortestProcess = null;
+        for (SchedulerProcess process : readyQueue) {
+            if (shortestProcess == null) {
+                shortestProcess = process;
+            } else {
+                if (process.getTempBurstTime() < shortestProcess.getTempBurstTime()) {
+                    shortestProcess = process;
+                }
+            }
+        }
+        return shortestProcess;
+    }
+
+    protected SchedulerProcess getGreatestPriority() {
+        SchedulerProcess shortestProcess = null;
+        for (SchedulerProcess process : readyQueue) {
+            if (shortestProcess == null) {
+                shortestProcess = process;
+            } else {
+                if (process.getTempPriority() < shortestProcess.getTempPriority()) {
+                    shortestProcess = process;
+                }
+            }
+        }
+        return shortestProcess;
+    }
+
     public int getContextSwitching() {
         return contextSwitching;
     }
@@ -97,12 +125,27 @@ public abstract class Scheduler {
         System.out.println();
     }
 
+    public void displayQuantumHistory() {
+        System.out.println("\nQuantum History:");
+        for (int i = 0; i < processes.size(); i++) {
+            for (int j = 0; j < processes.get(i).quantumHistory.size(); j++) {
+                System.out.println("Name: " + processes.get(i).getProcessName() + " Quantum: "
+                        + processes.get(i).quantumHistory.get(j));
+            }
+
+        }
+    }
+
     public void displayProcessesTable() {
         System.out.println("Processes Table:");
-        System.out.println("Process Name\tArrival Time\tBurst Time\tWaitingTime\tTurnaround Time\t  Priority");
+        System.out
+                .println("Process Name\tArrival Time\tEnd Time\tBurst Time\tWaitingTime\tTurnaround Time\t  Priority");
         for (SchedulerProcess process : processes) {
             System.out.println(process.getProcessName() + "\t\t" +
-                    process.getArrivalTime() + "\t\t" + process.getBurstTime() + "\t\t" + process.getWaitingTime()
+                    process.getArrivalTime() + "\t\t"
+                    + (process.getArrivalTime() + process.getBurstTime() + process.getWaitingTime()) + "\t\t"
+                    + process.getBurstTime() + "\t\t"
+                    + process.getWaitingTime()
                     + "\t\t" + (process.getBurstTime() + process.getWaitingTime()) + "\t\t  " + process.getPriority());
         }
         System.out.println();
@@ -114,6 +157,9 @@ public abstract class Scheduler {
         displayProcessesTable();
         displayAverageWaitingTime();
         displayAverageTurnaroundTime();
+        if (this instanceof AGScheduler) {
+            displayQuantumHistory();
+        }
     }
 
     abstract void schedule();
