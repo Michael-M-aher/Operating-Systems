@@ -26,7 +26,8 @@ public class App {
             processes.add(new SchedulerProcess(PName, arrivalTime, burstTime, priority));
         }
 
-        System.out.println("Enter 1 for SRTFScheduler, 2 for RRScheduler, 3 for PriorityScheduler");
+        System.out.println(
+                "Enter 1 for SJF Scheduling (preemptive), 2 for RR Scheduling, 3 for Priority Scheduling, 4 for AG Scheduling");
         int test = sc.nextInt();
 
         do {
@@ -42,18 +43,24 @@ public class App {
                 s = new RRScheduler(processes, contextSwitching, RRQuantum);
                 s.schedule();
                 s.displayAllData();
-            } else {
+            } else if (test == 3) {
                 s = new PriorityScheduler(processes);
                 s.schedule();
                 s.displayAllData();
+            } else if (test == 4) {
+                s = new AGScheduler(processes);
+                s.schedule();
+                s.displayAllData();
+            } else {
+                System.out.println("Invalid choice");
             }
-
-            System.out.println("Enter 1 for SRTFScheduler, 2 for RRScheduler, 3 for PriorityScheduler");
+            System.out.println(
+                    "Enter 1 for SJF Scheduling (preemptive), 2 for RR Scheduling, 3 for Priority Scheduling, 4 for AG Scheduling");
             test = sc.nextInt();
 
         } while (test != -1);
 
-        // ready test cases
+        // //ready test cases
 
         // ArrayList<SchedulerProcess> processes = new ArrayList<SchedulerProcess>();
         // processes.add(new SchedulerProcess("P1", 0, 1, 1));
