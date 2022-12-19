@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FirstFit extends MemoryManager{
+public class FirstFit extends MemoryManager {
 
     public FirstFit(ArrayList<MemProccess> processList, ArrayList<Partition> partitionList) {
         super(processList, partitionList);
@@ -8,25 +8,31 @@ public class FirstFit extends MemoryManager{
 
     @Override
     void manageProcesses() {
-        //error in printing
+        // error in printing
         int processIndex = 0;
-        while(processIndex < processList.size()){
+        while (processIndex < processList.size()) {
             MemProccess process = processList.get(processIndex);
+            int partitionIdx = -1;
             for (int i = 0; i < partitionList.size(); i++) {
-                if(partitionList.get(i).getUsedSize() == 0 && partitionList.get(i).getSize()>= process.getSize()){
-                    partitionList.get(i).setProcess(process);
-                    if(partitionList.get(i).getSize() != process.getSize()){
-                        partitionList.add(i+1 ,new Partition("Partition" + partitionList.size(), partitionList.get(i).getSize()-process.getSize()));    
-                    }
-                    partitionList.get(i).setSize(process.getSize());
-                    partitionList.get(i).setUsedSize(process.getSize());
+                if (partitionList.get(i).getUsedSize() == 0 && partitionList.get(i).getSize() >= process.getSize()) {
+                    partitionIdx = i;
                     break;
                 }
             }
+            if (partitionIdx == -1) {
+                notAllocated.add(process);
+                processIndex++;
+                continue;
+            }
+            partitionList.get(partitionIdx).setProcess(process);
+            if (partitionList.get(partitionIdx).getSize() != process.getSize()) {
+                partitionList.add(partitionIdx + 1, new Partition("Partition " + partitionList.size(),
+                        partitionList.get(partitionIdx).getSize() - process.getSize()));
+            }
+            partitionList.get(partitionIdx).setSize(process.getSize());
+            partitionList.get(partitionIdx).setUsedSize(process.getSize());
             processIndex++;
         }
     }
-    
-
 
 }
