@@ -3,10 +3,12 @@ public class Partition {
     String name;
     int size;
     int usedSize;
-    public Partition(String name, int size, int usedSize) {
+    MemProccess process;
+    
+    public Partition(String name, int size) {
         this.name = name;
         this.size = size;
-        this.usedSize = usedSize;
+        this.usedSize = 0;
     }
     public String getName() {
         return name;
@@ -25,5 +27,11 @@ public class Partition {
     }
     public void setUsedSize(int usedSize) {
         this.usedSize = usedSize;
+    }
+    public MemProccess getProcess() {
+        return process;
+    }
+    public void setProcess(MemProccess process) {
+        this.process = process;
     }
 }

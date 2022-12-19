@@ -1,8 +1,8 @@
 
-public class Proccess {
+public class MemProccess {
     String name;
     int size;
-    public Proccess(String name, int size) {
+    public MemProccess(String name, int size) {
         this.name = name;
         this.size = size;
     }
