@@ -12,10 +12,13 @@ public class FirstFit extends MemoryManager{
         int processIndex = 0;
         while(processIndex < processList.size()){
             MemProccess process = processList.get(processIndex);
-            for (Partition partition : partitionList) {
-                if(partition.getUsedSize() == 0 && partition.getSize()>= process.getSize()){
-                    partition.setProcess(process);
-                    partition.setUsedSize(process.getSize());
+            for (int i = 0; i < partitionList.size(); i++) {
+                if(partitionList.get(i).getUsedSize() == 0 && partitionList.get(i).getSize()>= process.getSize()){
+                    partitionList.get(i).setProcess(process);
+                    if(partitionList.get(i).getSize() != process.getSize()){
+                        partitionList.add(i+1 ,new Partition("Partition" + partitionList.size(), partitionList.get(i).getSize()-process.getSize()));    
+                    }
+                    partitionList.get(i).setSize(process.getSize());
                     break;
                 }
             }

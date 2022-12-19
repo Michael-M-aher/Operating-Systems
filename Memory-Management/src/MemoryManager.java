@@ -12,17 +12,7 @@ public abstract class MemoryManager {
         int i = 0;
         int j=partitionList.size();
         for (Partition partition : partitionList) {
-            if(partition.getUsedSize() ==0){
-                System.out.println("Partition "+i + "(" + (partition.getSize()-partition.getUsedSize()) + " KB => External fragment");
-            }else{
-                System.out.println("Partition "+i + "(" + partition.getUsedSize() + " KB => "+ partition.getProcess().getName());
-
-            }
-            if(partition.getUsedSize() !=0 && partition.getSize() != partition.getUsedSize()){
-                System.out.println("Partition "+j + "(" + (partition.getSize()-partition.getUsedSize()) + " KB => External fragment");
-                j++;
-            }
-            i++;
+            System.out.println(partition.getName() + "(" + partition.getSize() + " KB => "+ partition.getProcess().getName());
         }
     }
 }

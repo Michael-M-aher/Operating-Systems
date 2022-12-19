@@ -9,6 +9,7 @@ public class Partition {
         this.name = name;
         this.size = size;
         this.usedSize = 0;
+        process = new MemProccess("External fragment", 0);
     }
     public String getName() {
         return name;

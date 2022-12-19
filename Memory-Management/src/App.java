@@ -2,9 +2,8 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        int prossesNum;
-        int partitionNum;
+        // int prossesNum;
+        // int partitionNum;
         ArrayList<MemProccess> processList=new ArrayList<MemProccess>();
         ArrayList<Partition> partitionList=new ArrayList<Partition>();
         partitionList.add(new Partition("Partition0", 90));
@@ -19,7 +18,7 @@ public class App {
         processList.add(new MemProccess("Process3", 30));
         processList.add(new MemProccess("Process4", 100));
 
-        MemoryManager fcfs = new BestFit(processList, partitionList);
+        MemoryManager fcfs = new FirstFit(processList, partitionList);
         fcfs.manageProcesses();
         fcfs.print();
         
