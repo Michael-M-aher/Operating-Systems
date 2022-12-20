@@ -30,8 +30,9 @@ public class BestFit extends MemoryManager {
 
             bestPartition.setProcess(process);
             if (partitionList.get(bestPartitionIdx).getSize() != process.getSize()) {
-                partitionList.add(bestPartitionIdx + 1, new Partition("Partition " + partitionList.size(),
+                partitionList.add(bestPartitionIdx + 1, new Partition("Partition " + maxPartition,
                         partitionList.get(bestPartitionIdx).getSize() - process.getSize()));
+                maxPartition++;
             }
             bestPartition.setSize(process.getSize());
             bestPartition.setUsedSize(process.getSize());

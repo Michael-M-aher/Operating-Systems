@@ -4,6 +4,7 @@ public abstract class MemoryManager {
     protected ArrayList<MemProccess> processList;
     protected ArrayList<MemProccess> notAllocated;
     protected ArrayList<Partition> partitionList;
+    protected int maxPartition;
 
     public MemoryManager(ArrayList<MemProccess> processList, ArrayList<Partition> partitionList) {
         this.processList = processList;
@@ -11,8 +12,8 @@ public abstract class MemoryManager {
         for (Partition partition : partitionList) {
             this.partitionList.add(new Partition(partition.getName(), partition.getSize()));
         }
-
         this.notAllocated = new ArrayList<MemProccess>();
+        this.maxPartition = partitionList.size();
     }
 
     abstract void manageProcesses();
@@ -20,10 +21,8 @@ public abstract class MemoryManager {
     void compact() {
         int i = 0;
         int total = 0;
-        int size = partitionList.size();
         while (i < partitionList.size()) {
             if (partitionList.get(i).getUsedSize() == 0) {
-                System.out.println("Compacting " + partitionList.get(i).getName());
                 total += partitionList.get(i).getSize();
                 partitionList.remove(i);
                 continue;
@@ -31,9 +30,13 @@ public abstract class MemoryManager {
             i++;
         }
         if (total > 0) {
-            partitionList.add(new Partition("Partition " + size, total));
+            partitionList.add(new Partition("Partition " + maxPartition, total));
+            maxPartition++;
         }
-        System.out.println("Compaction done" + total);
+        ArrayList<MemProccess> temp = processList;
+        processList = notAllocated;
+        manageProcesses();
+        processList = temp;
     }
 
     void print() {
