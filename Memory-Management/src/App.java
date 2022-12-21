@@ -18,12 +18,18 @@ public class App {
         processList.add(new MemProccess("Process 3", 30));
         processList.add(new MemProccess("Process 4", 100));
 
+        System.out.println("First Fit:");
         MemoryManager fcfs = new FirstFit(processList, partitionList);
         fcfs.manageProcesses();
         fcfs.compact();
         fcfs.print();
-        System.out.println(" ");
+        System.out.println("Best Fit:");
         fcfs = new BestFit(processList, partitionList);
+        fcfs.manageProcesses();
+        fcfs.compact();
+        fcfs.print();
+        System.out.println("Worst Fit:");
+        fcfs = new WorstFit(processList, partitionList);
         fcfs.manageProcesses();
         fcfs.compact();
         fcfs.print();
