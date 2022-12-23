@@ -45,5 +45,10 @@ public abstract class MemoryManager {
             System.out.println(
                     partition.getName() + " (" + partition.getSize() + " KB) => " + partition.getProcess().getName());
         }
+        System.out.println("");
+        for (MemProccess process : notAllocated) {
+            System.out.println(process.getName() + " can not be allocated");
+        }
+        System.out.println("");
     }
 }

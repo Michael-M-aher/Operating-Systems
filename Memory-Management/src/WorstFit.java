@@ -29,6 +29,7 @@ public class WorstFit extends MemoryManager {
             }
 
             worstPartition.setProcess(process);
+            notAllocated.remove(process);
             if (partitionList.get(bestPartitionIdx).getSize() != process.getSize()) {
                 partitionList.add(bestPartitionIdx + 1, new Partition("Partition " + maxPartition,
                         partitionList.get(bestPartitionIdx).getSize() - process.getSize()));
