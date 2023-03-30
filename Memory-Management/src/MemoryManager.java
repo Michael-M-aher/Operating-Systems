@@ -30,7 +30,7 @@ public abstract class MemoryManager {
             i++;
         }
         if (total > 0) {
-            partitionList.add(new Partition("Partition " + maxPartition, total));
+            partitionList.add(new Partition("Partition" + maxPartition, total));
             maxPartition++;
         }
         ArrayList<MemProccess> temp = processList;

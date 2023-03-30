@@ -1,5 +1,5 @@
 # Memory Allocation Simulator
-
+<img src="https://cdn1.byjus.com/wp-content/uploads/2022/08/external-fragmentation-in-os.png" width="800" height="300">
 
 ## Brief
 
@@ -15,18 +15,22 @@ This program simulates memory management with segmentation using three different
 
 ## Using the Program
 
-1. Once you run the program, you will be prompted to enter the number of processes you want to simulate.
+1. Once you run the program, you will be prompted to enter the number of partitions you want to simulate.
+2. Enter the number of partitions and press enter.
+For each partition, you will be prompted to enter the partition name and partition size.
+![1](https://user-images.githubusercontent.com/25803558/228958018-6f049df9-363d-4fe9-b647-f576b5357c5a.png)
+3. After you have entered all the partitions, you will be prompted to enter the number of processes you want to simulate.
 2. Enter the number of processes and press enter.
 For each process, you will be prompted to enter the process size and process name.
+![6](https://user-images.githubusercontent.com/25803558/228958893-961a97f3-ffc2-460e-8265-f74adb5b6301.png)
 3. After you have entered all the processes, you will be prompted to choose a segmentation algorithm. 
-    - Enter 1 for First Fit
-    - Enter 2 for Best Fit
-    - Enter 3 for Worst Fit and press enter.
+    ![2](https://user-images.githubusercontent.com/25803558/228958268-625a7ecf-6bbe-4521-bbdd-0bcaccdbacd5.png)
 4. The program will then print the processes and the memory map showing which segments of memory are allocated to each process.
-5. You will then be prompted to enter '1.yes' or '2.no'
-<br>
-to indicate whether you want to compact the memory.
+![3](https://user-images.githubusercontent.com/25803558/228958992-f6709831-2bc9-418d-897f-6a4d6655e546.png)
+5. You will then be prompted whether you want to compact the memory.
+![4](https://user-images.githubusercontent.com/25803558/228959275-633f2ffe-b505-47f6-a83a-d87a1c7e477a.png)
 6. If you enter '1', the program will compact the memory and print the updated memory map.
+![5](https://user-images.githubusercontent.com/25803558/228959348-0efd3aa5-08e2-47a9-a17a-21811ddb7929.png)
 7. If you enter '2', the program will exit.
 
 ## Segmentation Algorithms

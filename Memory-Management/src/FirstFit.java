@@ -27,7 +27,7 @@ public class FirstFit extends MemoryManager {
             partitionList.get(partitionIdx).setProcess(process);
             notAllocated.remove(process);
             if (partitionList.get(partitionIdx).getSize() != process.getSize()) {
-                partitionList.add(partitionIdx + 1, new Partition("Partition " + maxPartition,
+                partitionList.add(partitionIdx + 1, new Partition("Partition" + maxPartition,
                         partitionList.get(partitionIdx).getSize() - process.getSize()));
                 maxPartition++;
             }
