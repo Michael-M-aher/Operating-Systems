@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class App {
+public class MemoryManagement {
     public static void main(String[] args) throws Exception {
         int prossesNum;
         int partitionNum;

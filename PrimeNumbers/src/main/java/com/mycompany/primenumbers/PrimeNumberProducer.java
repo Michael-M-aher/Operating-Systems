@@ -3,32 +3,32 @@ package com.mycompany.primenumbers;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Producer extends Thread {
-    Queue<Integer> queue = new LinkedList<Integer>();
+public class PrimeNumberProducer extends Thread {
+    Queue<Integer> primeNumberBuffer = new LinkedList<Integer>();
     int n;
     int size;
 
-    public Producer(int n, int size) {
+    public PrimeNumberProducer(int n, int size) {
         this.n = n;
         this.size = size;
     }
 
     public void run() {
-        synchronized (queue) {
+        synchronized (primeNumberBuffer) {
             for (int i = 2; i < n; i++) {
-                while (queue.size() == size) {
+                while (primeNumberBuffer.size() == size) {
                     try {
-                        queue.wait();
+                        primeNumberBuffer.wait();
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
                 if (isPrime(i)) {
-                    queue.add(i);
-                    queue.notifyAll();
+                    primeNumberBuffer.add(i);
+                    primeNumberBuffer.notifyAll();
                 }
             }
-            queue.add(-1);
+            primeNumberBuffer.add(-1);
             System.out.println("Producer is done");
         }
 
