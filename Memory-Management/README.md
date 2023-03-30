@@ -24,10 +24,10 @@ For each partition, you will be prompted to enter the partition name and partiti
 For each process, you will be prompted to enter the process size and process name.
 ![6](https://user-images.githubusercontent.com/25803558/228958893-961a97f3-ffc2-460e-8265-f74adb5b6301.png)
 3. After you have entered all the processes, you will be prompted to choose a segmentation algorithm. 
-    ![2](https://user-images.githubusercontent.com/25803558/228958268-625a7ecf-6bbe-4521-bbdd-0bcaccdbacd5.png)
+![2](https://user-images.githubusercontent.com/25803558/228958268-625a7ecf-6bbe-4521-bbdd-0bcaccdbacd5.png)
 4. The program will then print the processes and the memory map showing which segments of memory are allocated to each process.
 ![3](https://user-images.githubusercontent.com/25803558/228958992-f6709831-2bc9-418d-897f-6a4d6655e546.png)
-5. You will then be prompted whether you want to compact the memory.
+5. You will then be prompted whether you want to compact the memory.<br>
 ![4](https://user-images.githubusercontent.com/25803558/228959275-633f2ffe-b505-47f6-a83a-d87a1c7e477a.png)
 6. If you enter '1', the program will compact the memory and print the updated memory map.
 ![5](https://user-images.githubusercontent.com/25803558/228959348-0efd3aa5-08e2-47a9-a17a-21811ddb7929.png)
