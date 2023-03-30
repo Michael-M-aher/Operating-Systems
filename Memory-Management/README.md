@@ -23,9 +23,7 @@ For each process, you will be prompted to enter the process size and process nam
     - Enter 2 for Best Fit
     - Enter 3 for Worst Fit and press enter.
 4. The program will then print the processes and the memory map showing which segments of memory are allocated to each process.
-5. You will then be prompted to enter '1.yes' or '2.no'
-<br>
-to indicate whether you want to compact the memory.
+5. You will then be prompted to enter '1.yes' or '2.no' to indicate whether you want to compact the memory.
 6. If you enter '1', the program will compact the memory and print the updated memory map.
 7. If you enter '2', the program will exit.
 
