@@ -5,9 +5,9 @@
 ## Brief
 Collection of operating systems concepts and code implementations in java.
 
-- [Process Scheduling Algorithms](https://github.com/Operating-Systems/tree/main/Process-Scheduling)
-- [Memory Management](https://github.com/Operating-Systems/tree/main/Memory-Management)
-- [Producer Consumer Problem](https://github.com/Operating-Systems/tree/main/PrimeNumbers)
+- [Process Scheduling Algorithms](https://github.com/Michael-M-aher/Operating-Systems/tree/main/Process-Scheduling)
+- [Memory Management](https://github.com/Michael-M-aher/Operating-Systems/tree/main/Memory-Management)
+- [Producer Consumer Problem](https://github.com/Michael-M-aher/Operating-Systems/tree/main/PrimeNumbers)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an [issue](https://github.com/Michael-M-aher/Operating-Systems/issues) first to discuss what you would like to change.
